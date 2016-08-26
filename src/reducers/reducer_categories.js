@@ -1,6 +1,11 @@
 export default function reducer(state={
-  category: [],
-  foo: "this"
+  categories: ['random'],
+  foo: ""
 }, action) {
-  return {...state, "foo": "fhis", "somename": "bla "}
+  if (action.type == "FETCH_CATEGORIES") {
+    console.log("yay!", action.payload.money);
+    return {...state, foo: "not this", categories: ["bla ", "crapybla"]}
+  }
+
+  return state
 }

@@ -5,5 +5,5 @@ import locations from './reducer_locations';
 
 export default combineReducers({
   categories,
-  locations,
+  locations
 })
