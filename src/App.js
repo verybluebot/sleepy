@@ -6,17 +6,17 @@ import {
   TouchableHighlight,
   TextInput,
   AsyncStorage,
-  ScrollView,
   Navigator
 } from 'react-native';
 import Categories from './containers/container_categories';
+import Header from './components/header'
 
 class App extends Component {
   render() {
     return (
       <View>
+        <Header />
         <Text>
-          this is sparta
         </Text>
         <Categories />
       </View>

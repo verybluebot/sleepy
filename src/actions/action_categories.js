@@ -6,3 +6,12 @@ export const fetchCategories = () => {
     }
   }
 }
+
+export const addCategory = (cat) => {
+  return {
+    type: "ADD_CATEGORY",
+    payload: {
+      category: cat
+    }
+  }
+}
