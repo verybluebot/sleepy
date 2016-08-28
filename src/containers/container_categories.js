@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  AsyncStorage,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -11,27 +12,35 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchCategories } from '../actions/action_categories';
+import { fetchCategories, addCategory } from '../actions/action_categories';
 import Category from './container_category';
 import CategoryModalUpdate from './container_category_modal_update';
 import CategoryModalNew from './container_category_modal_new';
 
 
 class Categories extends Component {
-  componentWillMount() {
-    // TODO: this is where we diapatch the action to get all categories from DB
-    // this.props.dispatch(fetchCategories());
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+      tmp: {}
+    }
+  }
+  componentWillMount  () {
+    AsyncStorage.getItem('categories').then((response) => {
+      this.setState({tmp: JSON.parse(response)})
+      this.props.dispatch(addCategory(this.state.tmp))
+    });
   }
 
   // not in use for now
   getCategories() {
-    this.props.dispatch(fetchCategories());
+    this.props.dispatch(addCategories());
   }
 
-  addCategory() {
-    if (this.state.text !== "") {
-      this.props.dispatch(addCategory(this.state.text));
-    }
+  addCategories() {
+    this.props.dispatch(addCategory(this.state.text));
+
     // TODO: add here error handling for submiting an empty category
     this.setState({text: ''})
   }
@@ -49,7 +58,7 @@ class Categories extends Component {
         <View style={{height: 45}}>
         </View>
           <View style={styles.categories}>
-            <Category />
+            <Category navigator={this.props.navigator} route={this.props.route} />
           </View>
       </View>
     )

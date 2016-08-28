@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  AsyncStorage,
   Text,
   TextInput,
   Modal,
@@ -18,13 +19,19 @@ class CategoryModalNew extends Component {
     this.state = {text: ''}
   }
 
-  addCategory() {
+  addCategories() {
     if (this.state.text !== "") {
+      // TODO: need to make it into callbacks
       this.props.dispatch(addCategory(this.state.text));
       this.props.dispatch(CategotryModalNewisVisble(false))
+      this.setStorage(this.props.categories);
     }
     // TODO: add here error handling for submiting an empty category
     this.setState({text: ''})
+  }
+
+  setStorage(data) {
+    AsyncStorage.setItem('categories', JSON.stringify(data));
   }
 
   setModalNewVisible(isVisible){
@@ -49,7 +56,7 @@ class CategoryModalNew extends Component {
                 style={styles.textInput}
                 onChangeText={(text) => this.setState({text})}
                 placeholder="Category Name"
-                onSubmitEditing={() => this.addCategory()}
+                onSubmitEditing={() => this.addCategories()}
               />
             <View style={styles.buttons}>
               <Button
@@ -60,7 +67,7 @@ class CategoryModalNew extends Component {
               </Button>
               <Button
                 containerStyle={styles.button}
-                onPress={() => this.addCategory()}
+                onPress={() => this.addCategories()}
                 style={styles.button}>
                 ADD
               </Button>

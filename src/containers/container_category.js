@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  AsyncStorage,
   Alert,
   StyleSheet,
   Text,
@@ -25,10 +26,11 @@ class Category extends Component {
     return this.props.categories.map((c, i) => {
       return (
         <View style={styles.category} key={i}>
-
-            <Text style={styles.catName}>
-              {c}
-            </Text>
+            <TouchableOpacity style={{flex: 1}} onPress={this.props.navigator.push({name: 'locations'})}>
+              <Text style={styles.catName}>
+                {c}
+              </Text>
+            </TouchableOpacity>
             <View style={styles.icons}>
 
               <TouchableOpacity>

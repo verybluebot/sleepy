@@ -22,11 +22,6 @@ const routes = {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: ''}
-  }
-
   renderScene(route, navigator) {
     let Comp = routes[route.name];
     return <Comp navigator={navigator} route={route} />
@@ -45,7 +40,7 @@ class App extends Component {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'locations'}}
+        initialRoute={{name: 'categories'}}
         renderScene={this.renderScene}
         configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}
         navigationBar={
@@ -78,7 +73,9 @@ class App extends Component {
            );},
          Title: (route, navigator, index, navState) =>
            { return (
-             <HeaderTitle name={route.name} />
+             
+              <HeaderTitle name={route.name} />
+
            );},
        }}
      />

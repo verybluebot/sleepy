@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  AsyncStorage,
   Text,
   TextInput,
   Modal,
@@ -27,6 +28,7 @@ class LocationModalNew extends Component {
   addLocation() {
     this.props.dispatch(addLocation(this.state));
     this.props.dispatch(LocationModalNewisVisble(false))
+    this.setStorage(this.props.locations);
     // TODO: add here error handling for submiting an empty location
     this.setState({
       name: '',
@@ -44,6 +46,10 @@ class LocationModalNew extends Component {
         category: '',
         coordinates: ''
       })
+  }
+
+  setStorage(data) {
+    AsyncStorage.setItem('locations', JSON.stringify(data));
   }
   render() {
     return (
