@@ -8,16 +8,17 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Categories from './containers/container_categories';
+import Locations from './containers/locations/container_locations';
 import HeaderTitle from './small_components/header_title';
 import BackButton from './small_components/back_button';
 import AddButton from './small_components/add_button';
-import CategoryModalNew from './containers/container_category_modal_new';
-import { addCategory, CategotryModalNewisVisble } from './actions/action_categories';
+import { CategotryModalNewisVisble } from './actions/action_categories';
+import { LocationModalNewisVisble } from './actions/action_locations';
 
 
 const routes = {
   categories: Categories,
-  modal: CategoryModalNew
+  locations: Locations
 };
 
 class App extends Component {
@@ -30,14 +31,21 @@ class App extends Component {
     let Comp = routes[route.name];
     return <Comp navigator={navigator} route={route} />
   }
-  addCategory() {
-    this.props.dispatch(CategotryModalNewisVisble(true))
+
+  setDispatcher(name) {
+    switch(name) {
+    case "categories":
+      this.props.dispatch(CategotryModalNewisVisble(true))
+    case "locations":
+      this.props.dispatch(LocationModalNewisVisble(true))
+  }
+
   }
   render() {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'categories'}}
+        initialRoute={{name: 'locations'}}
         renderScene={this.renderScene}
         configureScene={() => {return Navigator.SceneConfigs.FloatFromRight}}
         navigationBar={
@@ -60,7 +68,7 @@ class App extends Component {
          RightButton: (route, navigator, index, navState) =>
            { return (
              <View style={styles.back}>
-               <TouchableOpacity onPress={() => this.addCategory()}>
+               <TouchableOpacity onPress={() => this.setDispatcher(route.name)}>
                 <View>
                   <AddButton />
                  </View>

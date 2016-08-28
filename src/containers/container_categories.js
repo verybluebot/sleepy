@@ -11,7 +11,7 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchCategories, CategotryModalisVisble } from '../actions/action_categories';
+import { fetchCategories } from '../actions/action_categories';
 import Category from './container_category';
 import CategoryModalUpdate from './container_category_modal_update';
 import CategoryModalNew from './container_category_modal_new';
@@ -36,9 +36,6 @@ class Categories extends Component {
     this.setState({text: ''})
   }
 
-  setModalVisible(isVisible) {
-    this.props.dispatch(CategotryModalisVisble(isVisible));
-  }
   render() {
     var TouchableElement = TouchableHighlight;
     if (Platform.OS === 'android') {
